@@ -16,9 +16,16 @@ class ThemeServiceProvider extends ServiceProvider
     public function boot()
     {
         Nova::serving(function (ServingNova $event) {
-            //Nova::style('laravel-nova-theme-classify', __DIR__.'/../resources/css/theme.css');
+            $themePath = resource_path('css/vendor/laravel-nova-theme-classify/theme.css');
+            if (file_exists($themePath)) {
+                Nova::style('laravel-nova-theme-classify', $themePath);
+            }
             Nova::script('laravel-nova-theme-classify', __DIR__.'/../resources/js/theme.js');
         });
+
+        $this->publishes([
+            __DIR__ . '/../resources/css' => resource_path('css/vendor/laravel-nova-theme-classify'),
+        ]);
     }
 
     /**
