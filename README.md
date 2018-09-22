@@ -3,28 +3,46 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/gregoriohc/laravel-nova-theme-classify.svg?style=flat-square)](https://packagist.org/packages/gregoriohc/laravel-nova-theme-classify)
 [![Total Downloads](https://img.shields.io/packagist/dt/gregoriohc/laravel-nova-theme-classify.svg?style=flat-square)](https://packagist.org/packages/gregoriohc/laravel-nova-theme-classify)
 
-A simple Laravel Nova theme that add classifyness to the site.
-
-It can be used as is, or as a base theme to your own ones.
+Laravel Nova theme helper that add CSS classes to the main nova views elements, making it easier to style it.
 
 ## Installation
 
-You can install the nova theme into a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
+You can install the nova theme helper into a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
 
 ```bash
 composer require gregoriohc/laravel-nova-theme-classify
 ```
 
-## Screenshots
+## Usage
 
-Dashboard | Menu | Index
------------- | ------------- | -------------
-![nova-classify-dashboard-view](https://user-images.githubusercontent.com/29180903/45772680-5ff51600-bc16-11e8-85c8-da33d9a6fea5.png) | ![nova-classify-index-menu-view](https://user-images.githubusercontent.com/29180903/45772682-608dac80-bc16-11e8-9b15-b69131c2f02a.png) | ![nova-classify-index-view](https://user-images.githubusercontent.com/29180903/45772683-608dac80-bc16-11e8-9266-404617968c3f.png)
+You can use this theme helper in three ways:
 
-Detail | Create | Delete
------------- | ------------- | -------------
- ![nova-classify-detail-view](https://user-images.githubusercontent.com/29180903/45772677-5ff51600-bc16-11e8-90e9-17e6025f8998.png) | ![nova-classify-create-view](https://user-images.githubusercontent.com/29180903/45772681-5ff51600-bc16-11e8-84c9-c0f61890bfed.png)|  ![nova-classify-delete-view](https://user-images.githubusercontent.com/29180903/45772679-5ff51600-bc16-11e8-93d5-cd2a88b7e54a.png)
+### A) Adding an stylesheet on your Nova app, and using the provided CSS classes to customize the styles
 
+First, publish the package skeleton stylesheet:
+```bash
+php artisan package:publish --provider="Gregoriohc\LaravelNovaThemeClassify\ThemeServiceProvider"
+```
+
+Then, update the stylesheet with your custom styles. The file is located in `resources/css/vendor/laravel-nova-theme-classify/theme.css`
+
+### B) Creating your own theme and adding this one as a dependency
+
+First, create your own Nova theme:
+```bash
+php artisan nova:theme MyCustomTheme
+```
+Then, customize the CSS of your own theme, using the CSS classes provided by this one.
+
+If you want to public release your theme, don't forget to add this as a dependency:
+```bash
+cd path/to/MyCustomTheme
+composer require gregoriohc/laravel-nova-theme-classify
+```
+
+### C) Using it as a base to create your own theme
+
+Simply, clone this repo, and modify it to create your custom theme.
 
 ## Credits
 
