@@ -1,86 +1,88 @@
 function load() {
   // Header
-  observe('div.content div.h-header', function () {
-    var header = new Eler('div.content div.h-header')
-      .addClass('page-header');
+  var header = new Eler('div.content div.h-header')
+    .addClass('page-header');
 
-    header.children('a')
-      .addClass('site-title');
+  header.children('a')
+    .addClass('site-title');
 
-    header.children('input[dusk=global-search]')
-      .parent().parent().parent()
-      .addClass('global-search');
+  header.children('input[dusk=global-search]')
+    .parent().parent().parent()
+    .addClass('global-search');
 
-    header.children('a.dropdown-trigger')
-      .addClass('user-name');
+  header.children('a.dropdown-trigger')
+    .addClass('user-name');
 
+  runAndObserve('div.content div.h-header', function () {
     header.children('div.dropdown-menu')
       .addClass('user-menu');
   });
 
   // Sidebar
-  observe('div.w-sidebar', function () {
-    var sidebar = new Eler('div.w-sidebar')
-      .addClass('page-sidebar');
-
-    sidebar.children('h3')
-      .addClass('sidebar-header');
-
-    sidebar.children('ul li')
-      .addClass('sidebar-link');
-  });
+  var sidebar = new Eler('.w-sidebar')
+    .addClass('page-sidebar');
 
   // Content
-  observe('div[data-testid=content]', function () {
-    var content = new Eler('div.content div[data-testid=content]')
-      .addClass('page-content');
+  var content = new Eler('div.content div[data-testid=content]')
+    .addClass('page-content');
 
-    // Footer
-    content.lastChild()
-      .addClass('page-footer');
+  // Footer
+  content.lastChild()
+    .addClass('page-footer');
 
+  runAndObserve('div[data-testid=content]', function () {
     // Resource index
-    var resourceIndex = content.children('div[dusk$=index-component]')
-      .addClass('resource-index');
+    var resourceIndex = content.children('div[dusk$=index-component]');
 
-    var indexActionsContainer = resourceIndex.children('div[dusk=filter-selector]')
-      .parent()
-      .addClass('index-actions-container');
+    if (resourceIndex.exists()) {
+      resourceIndex.addClass('resource-index');
 
-    indexActionsContainer.children('select[dusk=action-select]').parent().addClass('action-select');
-    indexActionsContainer.children('div[dusk=delete-menu]').addClass('delete-menu');
+      var indexActionsContainer = resourceIndex.children('div[dusk=filter-selector]')
+        .addClass('filter-select')
+        .parent()
+        .addClass('index-actions-container');
 
-    var filtersMenu = indexActionsContainer.children('div.dropdown-menu div')
-      .addClass('filters-menu');
+      indexActionsContainer.children('select[dusk=action-select]').parent().addClass('action-select');
+      indexActionsContainer.children('div[dusk=delete-menu]').addClass('delete-menu');
 
-    filtersMenu.each('h3', function(el) {
-      el.addClass('filter-title');
-    });
+      var filtersMenu = indexActionsContainer.children('div.dropdown-menu div')
+        .addClass('filters-menu');
 
-    filtersMenu.each('div div.p-3', function(el) {
-      el.addClass('filter-options');
-    });
+      filtersMenu.each('h3', function(el) {
+        el.addClass('filter-title');
+      });
+
+      filtersMenu.each('div div.p-3', function(el) {
+        el.addClass('filter-options');
+      });
+    }
 
     // Resource detail
-    var resourceDetail = content.children('div[dusk$=detail-component]')
-      .addClass('resource-detail');
+    var resourceDetail = content.children('div[dusk$=detail-component]');
 
-    resourceDetail.children('a[dusk=edit-resource-button]')
-      .parent()
-      .addClass('details-actions-container');
+    if (resourceDetail.exists()) {
+      resourceDetail.addClass('resource-detail');
+
+      resourceDetail.children('a[dusk=edit-resource-button]')
+        .parent()
+        .addClass('details-actions-container');
+    }
 
     // Resource form
-    var resourceForm = new Eler('button[dusk=update-button], button[dusk=create-button]')
-      .closest('form')
-      .addClass('resource-form');
-    if (resourceForm.element && resourceForm.element.children) {
-      for (var i = 0; i < resourceForm.element.children.length; i++) {
-        if (i === 0) {
-          new Eler(resourceForm.element.children[i]).addClass('form-errors')
-        } else if (i === form.element.children.length - 1) {
-          new Eler(resourceForm.element.children[i]).addClass('form-footer')
-        } else {
-          new Eler(resourceForm.element.children[i]).addClass('form-group')
+    var resourceForm = new Eler('button[dusk=update-button], button[dusk=create-button]').closest('form');
+
+    if (resourceForm.exists()) {
+      resourceForm.addClass('resource-form');
+
+      if (resourceForm.element.children) {
+        for (var i = 0; i < resourceForm.element.children.length; i++) {
+          if (i === 0) {
+            new Eler(resourceForm.element.children[i]).addClass('form-errors')
+          } else if (i === form.element.children.length - 1) {
+            new Eler(resourceForm.element.children[i]).addClass('form-footer')
+          } else {
+            new Eler(resourceForm.element.children[i]).addClass('form-group')
+          }
         }
       }
     }
@@ -115,10 +117,14 @@ function Eler(el) {
   return this;
 }
 
+Eler.prototype.exists = function() {
+  return !!this.element;
+};
+
 Eler.prototype.addClass = function(className) {
   if (this.element) {
     this.element.classList.add(className);
-    //console.log('Class added: ' + className);
+    console.log('Class added: ' + className);
   }
 
   return this;
@@ -175,6 +181,11 @@ function observe(selector, callback) {
     childList: true,
     subtree: true
   });
+}
+
+function runAndObserve(selector, callback) {
+  callback();
+  observe(selector, callback);
 }
 
 document.addEventListener("DOMContentLoaded", load, false);

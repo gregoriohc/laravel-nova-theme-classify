@@ -21,10 +21,10 @@
 .page-sidebar .bg-logo {
 }
 
-.page-sidebar .sidebar-header {
+.page-sidebar h3 {
 }
 
-.page-sidebar .sidebar-link {
+.page-sidebar ul li {
 }
 
 /************************* Content **************************/
@@ -44,7 +44,16 @@
 .resource-index .index-actions-container .action-select {
 }
 
+.resource-index .index-actions-container .action-select select {
+}
+
+.resource-index .index-actions-container .action-select button {
+}
+
 .resource-index .index-actions-container .delete-menu {
+}
+
+.resource-index .index-actions-container .filters-select {
 }
 
 .resource-index .index-actions-container .filters-menu {
