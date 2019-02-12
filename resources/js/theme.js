@@ -78,7 +78,7 @@ function load() {
         for (var i = 0; i < resourceForm.element.children.length; i++) {
           if (i === 0) {
             new Eler(resourceForm.element.children[i]).addClass('form-errors')
-          } else if (i === form.element.children.length - 1) {
+          } else if (i === resourceForm.element.children.length - 1) {
             new Eler(resourceForm.element.children[i]).addClass('form-footer')
           } else {
             new Eler(resourceForm.element.children[i]).addClass('form-group')
