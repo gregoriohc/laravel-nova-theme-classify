@@ -124,7 +124,6 @@ Eler.prototype.exists = function() {
 Eler.prototype.addClass = function(className) {
   if (this.element) {
     this.element.classList.add(className);
-    console.log('Class added: ' + className);
   }
 
   return this;
