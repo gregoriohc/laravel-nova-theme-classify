@@ -21,7 +21,7 @@ You can use this theme helper in three ways:
 
 First, publish the package skeleton stylesheet:
 ```bash
-php artisan package:publish --provider="Gregoriohc\LaravelNovaThemeClassify\ThemeServiceProvider"
+php artisan vendor:publish --provider="Gregoriohc\LaravelNovaThemeClassify\ThemeServiceProvider"
 ```
 
 Then, update the stylesheet with your custom styles. The file is located in `resources/css/vendor/laravel-nova-theme-classify/theme.css`
